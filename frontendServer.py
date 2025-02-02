@@ -1,4 +1,4 @@
-from flask import Blueprint, send_from_directory
+from flask import Blueprint, redirect, send_from_directory
 
 frontendServer = Blueprint("frontend", __name__)
 
@@ -7,6 +7,11 @@ frontendServer = Blueprint("frontend", __name__)
 def send_report(path):
     # Using request args for path will expose you to directory traversal attacks
     return send_from_directory("frontend/dist", path)
+
+
+@frontendServer.route("/")
+def redirectIndex():
+    return redirect("/index.html")
 
 
 @frontendServer.after_request
